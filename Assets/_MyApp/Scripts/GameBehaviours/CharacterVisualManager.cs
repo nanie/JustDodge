@@ -10,8 +10,7 @@ public class CharacterVisualManager : MonoBehaviour
      Controls player visuals in scene and save them
     */
     [Tooltip("Character possible sprite variants")]
-    [SerializeField]
-    private BodyParts[] bodyParts;
+    public BodyParts[] bodyParts;
 
     void Start()
     {

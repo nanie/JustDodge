@@ -9,13 +9,14 @@ public class CameraSmoothFollow : MonoBehaviour
     //Camera velocity
     private Vector3 velocity = Vector3.zero;
 
-    [Tooltip("How smooth is the movement of camera")]
-    public float smoothTime = 0.3F;
+    //How smooth is the movement of camera
+    private float smoothTime = 0.3F;
 
     void Start()
     {
         //Find player gameobject by tag
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        smoothTime = GlobalGameVariables.Instance.variables.cameraSmoothFactor;
     }
 
 
