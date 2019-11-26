@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SceneController : MonoBehaviour
     {
         get
         {
+            //If is called in a scene where it isn't added it creates the gameobject
             if (instance == null)
             {
                 GameObject go = new GameObject("SceneManager");
@@ -22,19 +24,23 @@ public class SceneController : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        //Prevent more than one SceneController
+        if (instance!=null && instance != this)
         {
-            instance = this;
-        }
+            Destroy(instance.gameObject);
+        }        
+        instance = this;
     }
 
+    //Go to main game scene
     public void GoToMainGame()
     {
         SceneManager.LoadScene("MainGame");
     }
-
+    //Go to Score board scene
     public void GoToScoreBoard()
     {
         SceneManager.LoadScene("Score");
     }
+
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameVariables
   m_EditorClassIdentifier: 
   inUse: 1
-  playerSpeed: 5
+  playerSpeed: 7
   cameraSmoothFactor: 0.3
   playerHealthPoints: 1
   playerMaxHealthPoints: 3
@@ -27,7 +27,7 @@ MonoBehaviour:
   EnemySpawnInterval: 3
   EnemySpawnIntervalOverTime: 0.1
   MinimalEnemySpawnIntervalOverTime: 0.3
-  enemySpeed: 0.5
+  enemySpeed: 9
   EnemyPingpongHitCount: 3
   enemyChangeTime: 2
   ItemSpawnInterval: 6

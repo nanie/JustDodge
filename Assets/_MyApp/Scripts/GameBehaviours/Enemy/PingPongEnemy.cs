@@ -16,7 +16,7 @@ public class PingPongEnemy : EnemyBehaviour
 
     public override void Init()
     {
-        direction = player.transform.position - transform.position;
+        direction = (player.transform.position - transform.position).normalized;
         speed = GlobalGameVariables.Instance.variables.enemySpeed;
         hits = GlobalGameVariables.Instance.variables.EnemyPingpongHitCount;
     }
@@ -33,7 +33,7 @@ public class PingPongEnemy : EnemyBehaviour
             hits--;
             if (hits <= 0)
                 Destroy(gameObject);
-            direction = player.transform.position - transform.position;
+            direction = (player.transform.position - transform.position).normalized;
         }
     }
 

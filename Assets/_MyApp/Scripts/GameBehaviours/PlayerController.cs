@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     //Horizontal and vertical axis from player input
     private Vector2 direction;
 
+    //Horizontal and vertical point at start of touch
+    private Vector2 touchStart;
 
     void Start()
     {
@@ -33,24 +35,45 @@ public class PlayerController : MonoBehaviour
         //Capture input axis from drag on screen
         if (Input.touchCount > 0)
         {
-            if(Input.GetTouch(0).phase == TouchPhase.Moved)
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                Touch touch = Input.touches[0];
-                direction.x = touch.deltaPosition.x;
-                direction.y = touch.deltaPosition.y;
+                //Capture touch start
+                touchStart = Input.touches[0].position;
+            }
+            else if (Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+                //Calculate direction in reference of start of touch, calculate leght of vector using screen
+                direction = (Input.touches[0].position - touchStart) / (Screen.width / 20);
 
+                //Force axis to be between -1 and 1 so the max speed of player doesn't change between platform
                 direction.x = direction.x > 1 ? 1 : direction.x;
                 direction.x = direction.x < -1 ? -1 : direction.x;
 
                 direction.y = direction.y > 1 ? 1 : direction.y;
                 direction.y = direction.y < -1 ? -1 : direction.y;
-            }           
+            }
         }
         else
         {
             direction.x = 0;
             direction.y = 0;
         }
+
+        //Simulate touch using mouse when playing on editor
+        if (Input.GetMouseButtonDown(0))
+        {
+            touchStart = Input.mousePosition;
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            direction = ((Vector2)Input.mousePosition - touchStart) / (Screen.width / 20);
+            direction.x = direction.x > 1 ? 1 : direction.x;
+            direction.x = direction.x < -1 ? -1 : direction.x;
+
+            direction.y = direction.y > 1 ? 1 : direction.y;
+            direction.y = direction.y < -1 ? -1 : direction.y;
+        }
+
 #else
         //Find input axis
         direction.x = Input.GetAxis("Horizontal");
@@ -70,11 +93,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-
-
-
         rigidBody.MovePosition(rigidBody.position + direction * speed * Time.fixedDeltaTime);
-
-
     }
 }

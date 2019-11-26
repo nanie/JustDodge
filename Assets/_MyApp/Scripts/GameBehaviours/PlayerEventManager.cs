@@ -25,6 +25,7 @@ public class PlayerEventManager : MonoBehaviour
         }
         else
         {
+            DataHolder.Instance.currentScore = currentScore;
             SceneController.Instance.GoToScoreBoard();
         }
     }

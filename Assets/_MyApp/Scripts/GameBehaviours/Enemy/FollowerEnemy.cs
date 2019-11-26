@@ -15,7 +15,7 @@ public class FollowerEnemy : EnemyBehaviour
 
     public override void Init()
     {
-        direction = player.transform.position - transform.position;
+        direction = (player.transform.position - transform.position).normalized;
         speed = GlobalGameVariables.Instance.variables.enemySpeed;
         timer = GlobalGameVariables.Instance.variables.enemyChangeTime;
     }
@@ -25,7 +25,7 @@ public class FollowerEnemy : EnemyBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            direction = player.transform.position - transform.position;
+            direction = (player.transform.position - transform.position).normalized;
             timer = GlobalGameVariables.Instance.variables.enemyChangeTime;
         }
     }
