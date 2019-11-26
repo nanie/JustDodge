@@ -16,6 +16,7 @@ MonoBehaviour:
   playerSpeed: 5
   cameraSmoothFactor: 0.3
   playerHealthPoints: 1
+  playerMaxHealthPoints: 3
   enemySpawnConfiguration:
   - prefab: {fileID: 8885555826672191817, guid: a3e05792eb27da04ea16a343da33f00d,
       type: 3}
@@ -23,9 +24,17 @@ MonoBehaviour:
   - prefab: {fileID: 2173532658118864486, guid: ae95f5639faf8114c8a4be4c4d18a818,
       type: 3}
     chance: 1
-  EnemySpawnRate: 2
-  EnemySpawnRateOverTime: 0.1
-  MinimalEnemySpawnRateOverTime: 0.3
+  EnemySpawnInterval: 3
+  EnemySpawnIntervalOverTime: 0.1
+  MinimalEnemySpawnIntervalOverTime: 0.3
   enemySpeed: 0.5
   EnemyPingpongHitCount: 3
   enemyChangeTime: 2
+  ItemSpawnInterval: 6
+  itemSpawnConfiguration:
+  - prefab: {fileID: 2422433780214190811, guid: 4f0debcf79d23dc40b17163219b28406,
+      type: 3}
+    chance: 2
+  - prefab: {fileID: 6105406766332142186, guid: e73d66dfd8e262241957337d370aa4a0,
+      type: 3}
+    chance: 1

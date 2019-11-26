@@ -19,7 +19,7 @@ public class PlayerEventManager : MonoBehaviour
     public void EnemyHit()
     {
         currentHealth--;
-        if(currentHealth > 0)
+        if (currentHealth > 0)
         {
             playercanvas.UpdatePlayersHP(currentHealth);
         }
@@ -33,5 +33,12 @@ public class PlayerEventManager : MonoBehaviour
     {
         currentScore += amount;
         playercanvas.UpdateScore(currentScore);
+    }
+
+    public void AddLife()
+    {
+        if (currentHealth < GlobalGameVariables.Instance.variables.playerMaxHealthPoints)
+            currentHealth++;
+        playercanvas.UpdatePlayersHP(currentHealth);
     }
 }

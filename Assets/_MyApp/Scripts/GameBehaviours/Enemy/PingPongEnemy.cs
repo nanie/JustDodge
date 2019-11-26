@@ -5,7 +5,7 @@ using UnityEngine;
 /* Ping Pong Enemy
  - Calculate direction of player at start of lifetime
  - If collides with player is destroyed
- - Iff collides with anything else takes a hit
+ - Iff collides with a levelbound, takes a hit
  - Destroyed if hits comes to 0
 */
 public class PingPongEnemy : EnemyBehaviour
@@ -28,11 +28,13 @@ public class PingPongEnemy : EnemyBehaviour
 
     public override void OnOtherCollided(Collider2D collision)
     {
-        hits--;
-        if (hits <= 0)
-            Destroy(gameObject);
-        else
+        if (collision.tag == "bounds")
+        {
+            hits--;
+            if (hits <= 0)
+                Destroy(gameObject);
             direction = player.transform.position - transform.position;
+        }
     }
 
     public override void OnPlayerCollided(Collider2D collision)

@@ -23,7 +23,7 @@ public class FollowerEnemy : EnemyBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        if(timer <= 0)
+        if (timer <= 0)
         {
             direction = player.transform.position - transform.position;
             timer = GlobalGameVariables.Instance.variables.enemyChangeTime;
@@ -37,7 +37,8 @@ public class FollowerEnemy : EnemyBehaviour
 
     public override void OnOtherCollided(Collider2D collision)
     {
-        Destroy(gameObject);
+        if (collision.tag != "item")
+            Destroy(gameObject);
     }
 
     public override void OnPlayerCollided(Collider2D collision)

@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     //The chances are calculated relative to the sum of all chances
-    EnemySpawnConfiguration[] enemyChances;
+    SpawnConfiguration[] enemySpawnConfig;
     //Timer variable to control spawn
     private float timer;
     //Control the current spawn interval
@@ -18,10 +18,10 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        spawnTimer = GlobalGameVariables.Instance.variables.EnemySpawnRate;
-        enemyChances = GlobalGameVariables.Instance.variables.enemySpawnConfiguration;
+        spawnTimer = GlobalGameVariables.Instance.variables.EnemySpawnInterval;
+        enemySpawnConfig = GlobalGameVariables.Instance.variables.enemySpawnConfiguration;
         timer = spawnTimer;
-        totalChance = enemyChances.Sum(q => q.chance);
+        totalChance = enemySpawnConfig.Sum(q => q.chance);
         playerEvent = FindObjectOfType<PlayerEventManager>();
     }
 
@@ -30,24 +30,27 @@ public class EnemySpawner : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
+            //Add 1 point to the player score for every spawned enemy
             playerEvent.PlayerScore(1);
 
-            if (spawnTimer > GlobalGameVariables.Instance.variables.MinimalEnemySpawnRateOverTime)
-                spawnTimer -= GlobalGameVariables.Instance.variables.EnemySpawnRateOverTime;
+            //Check if the spawn interval isn't already less than the minimal and if it isn't decreases interval
+            if (spawnTimer > GlobalGameVariables.Instance.variables.MinimalEnemySpawnIntervalOverTime)
+                spawnTimer -= GlobalGameVariables.Instance.variables.EnemySpawnIntervalOverTime;
             timer = spawnTimer;
 
+            //create a random number
             var rand = Random.Range(0, totalChance + 1);
-            GameObject objectToInstantiate = enemyChances[0].prefab;
-            foreach (var item in enemyChances)
+            GameObject objectToInstantiate = enemySpawnConfig[0].prefab;
+            //find the enemy it should spawn respecting the spawn configuration odds
+            foreach (var item in enemySpawnConfig)
             {
                 objectToInstantiate = item.prefab;
                 rand -= item.chance;
                 if (rand <= 0)
                     break;
             }
-
+            //Find a random spawn point between spawn children and instantiate a enemy at it's position
             rand = Random.Range(0, transform.childCount);
-
             Instantiate(objectToInstantiate, transform.GetChild(rand).position, Quaternion.identity);
         }
     }
